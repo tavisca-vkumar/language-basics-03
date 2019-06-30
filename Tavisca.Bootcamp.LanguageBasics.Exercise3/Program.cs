@@ -38,38 +38,38 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             Console.WriteLine($"Diet plan = [{string.Join(", ", dietPlans)}]");
             Console.WriteLine(result);
         }
-        public static List<int> Maxm(int[] arr, List<int> count)
+        private static List<int> Maxm(int[] arr, List<int> indexes)
         {
-            int maxm = arr[count[0]];
+            int maxm = arr[indexes[0]];
             List<int> temp = new List<int>();
 
-            for(int i=0; i< count.Count; i++)
+            for(int i=0; i< indexes.Count; i++)
             {
-                if (arr[count[i]] > maxm)
-                    maxm = arr[count[i]];
+                if (arr[indexes[i]] > maxm)
+                    maxm = arr[indexes[i]];
             }
-            for(int i = 0; i < count.Count; i++)
+            for(int i = 0; i < indexes.Count; i++)
             {
-                if (arr[count[i]] == maxm)
-                    temp.Add(count[i]);
+                if (arr[indexes[i]] == maxm)
+                    temp.Add(indexes[i]);
             }
             
             return temp;
         }
-        public static List<int> Minm(int[] arr, List<int> count)
+        private static List<int> Minm(int[] arr, List<int> indexes)
         {
-            int minm = arr[count[0]];
+            int minm = arr[indexes[0]];
             List<int> temp = new List<int>();
 
-            for (int i = 0; i < count.Count; i++)
+            for (int i = 0; i < indexes.Count; i++)
             {
-                if (arr[count[i]] < minm)
-                    minm = arr[count[i]];
+                if (arr[indexes[i]] < minm)
+                    minm = arr[indexes[i]];
             }
-            for (int i = 0; i < count.Count; i++)
+            for (int i = 0; i < indexes.Count; i++)
             {
-                if (arr[count[i]] == minm)
-                    temp.Add(count[i]);
+                if (arr[indexes[i]] == minm)
+                    temp.Add(indexes[i]);
             }
             
             return temp;
@@ -77,7 +77,7 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
         public static int[] SelectMeals(int[] protein, int[] carbs, int[] fat, string[] dietPlans)
         {
             // Add your code here.
-            List<int> count = new List<int>();
+            List<int> indexes = new List<int>();
             int[] ans = new int[dietPlans.Length];
             int[] total = new int[protein.Length];
 
@@ -86,9 +86,9 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
             for(int i=0; i<dietPlans.Length; i++)
             {
-                count.Clear();
+                indexes.Clear();
                 for (int x = 0; x < protein.Length; x++)
-                    count.Add(x);
+                    indexes.Add(x);
 
                 for(int j=0; j<dietPlans[i].Length; j++)
                 {
@@ -97,39 +97,39 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                     {
                        
                         case 'T':
-                            count = Maxm(total, count);
+                            indexes = Maxm(total, indexes);
                             break;
                         case 't':
-                            count = Minm(total, count);
-                            //Console.WriteLine("{0} -- ",count[0] );
+                            indexes = Minm(total, indexes);
+                            //Console.WriteLine("{0} -- ",indexes[0] );
                             break;
                         case 'P':
-                            count = Maxm(protein, count);
+                            indexes = Maxm(protein, indexes);
                             break;
                         case 'p':
-                            count = Minm(protein, count);
+                            indexes = Minm(protein, indexes);
                             break;
                         case 'C':
-                            count = Maxm(carbs, count);
+                            indexes = Maxm(carbs, indexes);
                             break;
                         case 'c':
-                            count = Minm(carbs, count);
+                            indexes = Minm(carbs, indexes);
                             break;
                         case 'F':
-                            count = Maxm(fat, count);
+                            indexes = Maxm(fat, indexes);
                             break;
                         case 'f':
-                            count = Minm(fat, count);
+                            indexes = Minm(fat, indexes);
                             break;
                     }
-                    if (count.Count == 1)
+                    if (indexes.Count == 1)
                         break;
                 }
-                ans[i] = count[0];
+                ans[i] = indexes[0];
                 
             }
             return ans;
-            throw new NotImplementedException();
+            
         }
     }
 }
